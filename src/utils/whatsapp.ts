@@ -1,6 +1,6 @@
 import { CartItem, DeliveryMethod } from "@/context/CartContext";
 
-const WHATSAPP_NUMBER = "5493549456019";
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
 
 export function formatPrice(price: number): string {
   return new Intl.NumberFormat("es-AR", {

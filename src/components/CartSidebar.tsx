@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { buildWhatsAppMessage, openWhatsApp, formatPrice } from "@/utils/whatsapp";
-import { Trash2, ShoppingBag, X, MapPin, User, Phone, MessageSquare, MapPinHouse, Banknote, Building2, CreditCard, Store, MessageCircle, Plus, Minus } from "lucide-react";
+import { ShoppingBasket, Trash2, ShoppingBag, X, MapPin, User, Phone, MessageSquare, MapPinHouse, Banknote, Building2, CreditCard, Store, MessageCircle, Plus, Minus } from "lucide-react";
 
 interface CartSidebarProps {
   isOpen: boolean;
@@ -67,7 +67,7 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
         <div className="cart-body">
           {state.items.length === 0 ? (
             <div className="cart-empty">
-              <span className="empty-icon">🛒</span>
+              <ShoppingBasket size={50} />
               <p>Tu pedido está vacío</p>
               <small>Agregá productos del menú</small>
             </div>

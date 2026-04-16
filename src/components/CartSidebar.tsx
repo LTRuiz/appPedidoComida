@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { buildWhatsAppMessage, openWhatsApp, formatPrice } from "@/utils/whatsapp";
-import { Trash2, ShoppingBag, X, MapPin, Store, MessageCircle, Plus, Minus } from "lucide-react";
+import { Trash2, ShoppingBag, X, MapPin, User, Phone, MessageSquare, MapPinHouse, Banknote, Building2, CreditCard, Store, MessageCircle, Plus, Minus } from "lucide-react";
 
 interface CartSidebarProps {
   isOpen: boolean;
@@ -39,7 +39,8 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
       state.address,
       state.customerName,
       state.customerPhone,
-      state.notes
+      state.notes,
+      state.paymentMethod
     );
     openWhatsApp(message);
   };
@@ -127,37 +128,112 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
             </div>
 
             {state.deliveryMethod === "delivery" && (
-              <input
-                className="cart-input"
-                placeholder="📍 Dirección de entrega..."
-                value={state.address}
-                onChange={(e) => dispatch({ type: "SET_ADDRESS", address: e.target.value })}
-              />
+              <div style={{position: 'relative', width: '100%'}}>
+                <MapPinHouse size={18} style={{
+                  position:'absolute',
+                  left:'12px',
+                  top:'50%',
+                  transform:'translateY(-50%)',
+                  color: '#9ca3af',
+                  pointerEvents: 'none',
+                  }} />
+                <input
+                  className="cart-input"
+                  placeholder="Dirección de entrega..."
+                  value={state.address}
+                  onChange={(e) => dispatch({ type: "SET_ADDRESS", address: e.target.value })}
+                  style={{ paddingLeft: '40px', width:'100%'}}
+                />
+              </div>
             )}
+          </div>
+
+          {/* Payment method */}
+          <div className="cart-section">
+            <h4 className="section-title">Medio de pago</h4>
+            <div className="delivery-options">
+              <button
+                className={`delivery-option ${state.paymentMethod === "cash" ? "selected" : ""}`}
+                onClick={() => dispatch({ type: "SET_PAYMENT_METHOD", method: "cash" })}
+              >
+                <Banknote size={18} />
+                <span>Efectivo</span>
+              </button>
+              <button
+                className={`delivery-option ${state.paymentMethod === "transfer" ? "selected" : ""}`}
+                onClick={() => dispatch({ type: "SET_PAYMENT_METHOD", method: "transfer" })}
+              >
+                <Building2 size={18} />
+                <span>Transferencia</span>
+              </button>
+              <button
+                className={`delivery-option ${state.paymentMethod === "other" ? "selected" : ""}`}
+                onClick={() => dispatch({ type: "SET_PAYMENT_METHOD", method: "other" })}
+              >
+                <CreditCard size={18} />
+                <span>Otro</span>
+              </button>
+            </div>
           </div>
 
           {/* Customer info */}
           <div className="cart-section">
             <h4 className="section-title">Tus datos</h4>
-            <input
-              className="cart-input"
-              placeholder="👤 Tu nombre *"
-              value={state.customerName}
-              onChange={(e) => dispatch({ type: "SET_CUSTOMER_NAME", name: e.target.value })}
-            />
-            <input
-              className="cart-input"
-              placeholder="📱 Tu teléfono (opcional)"
-              value={state.customerPhone}
-              onChange={(e) => dispatch({ type: "SET_CUSTOMER_PHONE", phone: e.target.value })}
-            />
-            <textarea
-              className="cart-input cart-textarea"
-              placeholder="📝 Aclaraciones del pedido..."
-              value={state.notes}
-              onChange={(e) => dispatch({ type: "SET_NOTES", notes: e.target.value })}
-              rows={2}
-            />
+            {/* Tu nombre */}
+            <div style={{position: 'relative', marginBottom:'10px'}}>
+              <User size={18} style={{
+                  position:'absolute',
+                  left:'12px',
+                  top:'50%',
+                  transform:'translateY(-50%)',
+                  color: '#9ca3af',
+                  pointerEvents: 'none',
+                  }} />
+              <input
+                className="cart-input"
+                placeholder="Tu nombre *"
+                value={state.customerName}
+                onChange={(e) => dispatch({ type: "SET_CUSTOMER_NAME", name: e.target.value })}
+                style={{ paddingLeft: '40px', width:'100%'}}
+              />
+            </div>
+            {/* Tu teléfono */}
+            <div style={{position: 'relative', marginBottom:'10px'}}>
+              <Phone size={18} style={{
+                  position:'absolute',
+                  left:'12px',
+                  top:'50%',
+                  transform:'translateY(-50%)',
+                  color: '#888',
+                  pointerEvents: 'none',
+                  }} />
+              <input
+                className="cart-input"
+                placeholder="Tu teléfono"
+                value={state.customerPhone}
+                onChange={(e) => dispatch({ type: "SET_CUSTOMER_PHONE", phone: e.target.value })}
+                style={{ paddingLeft: '40px', width:'100%'}}
+              />
+            </div>
+            {/* Aclaraciones */}
+            <div style={{ position:'relative' }}>
+              <MessageSquare size={18} style={{
+                  position:'absolute',
+                  left:'12px',
+                  top:'19px',
+                  transform:'translateY(-50%)',
+                  color: '#888',
+                  pointerEvents: 'none',
+                  }} />
+              <textarea
+                className="cart-input cart-textarea"
+                style={{ paddingLeft: '40px', paddingTop:'10px', width:'100%'}}
+                placeholder="Aclaraciones del pedido..."
+                value={state.notes}
+                onChange={(e) => dispatch({ type: "SET_NOTES", notes: e.target.value })}
+                rows={2}
+              />
+            </div>
           </div>
 
           {/* Errors */}

@@ -11,17 +11,53 @@ export interface Product {
 export interface Category {
   id: string;
   name: string;
-  icon: string;
+  image: string;
+  accent: string;
 }
 
 export const categories: Category[] = [
-  { id: "all", name: "Todo", icon: "🍽️" },
-  { id: "burgers", name: "Hamburguesas", icon: "🍔" },
-  { id: "pizzas", name: "Pizzas", icon: "🍕" },
-  { id: "hot-dogs", name: "Hot Dogs", icon: "🌭" },
-  { id: "sides", name: "Acompañamientos", icon: "🍟" },
-  { id: "drinks", name: "Bebidas", icon: "🥤" },
-  { id: "desserts", name: "Postres", icon: "🍦" },
+  {
+    id: "all",
+    name: "Todo el menú",
+    image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=400&fit=crop",
+    accent: "#FF5722",
+  },
+  {
+    id: "burgers",
+    name: "Hamburguesas",
+    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&h=400&fit=crop",
+    accent: "#FF8C00",
+  },
+  {
+    id: "pizzas",
+    name: "Pizzas",
+    image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&h=400&fit=crop",
+    accent: "#E53935",
+  },
+  // {
+  //   id: "hot-dogs",
+  //   name: "Hot Dogs",
+  //   image: "https://images.unsplash.com/photo-1612392062631-94b4f66b24e4?w=600&h=400&fit=crop",
+  //   accent: "#F4511E",
+  // },
+  {
+    id: "sides",
+    name: "Acompañamientos",
+    image: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&h=400&fit=crop",
+    accent: "#FFB300",
+  },
+  {
+    id: "drinks",
+    name: "Bebidas",
+    image: "https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=600&h=400&fit=crop",
+    accent: "#0288D1",
+  },
+  {
+    id: "desserts",
+    name: "Postres",
+    image: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&h=400&fit=crop",
+    accent: "#8E24AA",
+  },
 ];
 
 export const products: Product[] = [
@@ -57,7 +93,7 @@ export const products: Product[] = [
     name: "Mushroom Swiss",
     description: "Medallón angus, champiñones salteados con ajo, queso suizo derretido, aioli de trufa",
     price: 2100,
-    image: "https://images.unsplash.com/photo-1548869197-31d5c68d7f98?w=400&h=300&fit=crop",
+    image: "https://girlheartfood.com/wp-content/uploads/2023/11/Mushroom-Swiss-Burger-Feature.jpg",
     category: "burgers",
   },
   // Pizzas
@@ -96,31 +132,31 @@ export const products: Product[] = [
     category: "pizzas",
   },
   // Hot Dogs
-  {
-    id: "h1",
-    name: "Chicago Style",
-    description: "Salchicha premium en pan brioche, mostaza amarilla, cebolla, pickles, tomate, sport pepper",
-    price: 1200,
-    image: "https://images.unsplash.com/photo-1612392062631-94b4f66b24e4?w=400&h=300&fit=crop",
-    category: "hot-dogs",
-    popular: true,
-  },
-  {
-    id: "h2",
-    name: "Chili Cheese Dog",
-    description: "Salchicha jumbo, chili de carne casero, queso cheddar fundido, jalapeños",
-    price: 1450,
-    image: "https://images.unsplash.com/photo-1583835746434-cf1534674f41?w=400&h=300&fit=crop",
-    category: "hot-dogs",
-  },
-  {
-    id: "h3",
-    name: "Bacon Wrapped",
-    description: "Salchicha envuelta en bacon crocante, guacamole, salsa criolla, jalapeños frescos",
-    price: 1550,
-    image: "https://images.unsplash.com/photo-1619740455993-9d622702b6c5?w=400&h=300&fit=crop",
-    category: "hot-dogs",
-  },
+  // {
+  //   id: "h1",
+  //   name: "Chicago Style",
+  //   description: "Salchicha premium en pan brioche, mostaza amarilla, cebolla, pickles, tomate, sport pepper",
+  //   price: 1200,
+  //   image: "https://images.unsplash.com/photo-1612392062631-94b4f66b24e4?w=400&h=300&fit=crop",
+  //   category: "hot-dogs",
+  //   popular: true,
+  // },
+  // {
+  //   id: "h2",
+  //   name: "Chili Cheese Dog",
+  //   description: "Salchicha jumbo, chili de carne casero, queso cheddar fundido, jalapeños",
+  //   price: 1450,
+  //   image: "https://images.unsplash.com/photo-1583835746434-cf1534674f41?w=400&h=300&fit=crop",
+  //   category: "hot-dogs",
+  // },
+  // {
+  //   id: "h3",
+  //   name: "Bacon Wrapped",
+  //   description: "Salchicha envuelta en bacon crocante, guacamole, salsa criolla, jalapeños frescos",
+  //   price: 1550,
+  //   image: "https://images.unsplash.com/photo-1619740455993-9d622702b6c5?w=400&h=300&fit=crop",
+  //   category: "hot-dogs",
+  // },
   // Acompañamientos
   {
     id: "s1",
@@ -178,7 +214,7 @@ export const products: Product[] = [
     name: "Agua Mineral 500ml",
     description: "Con o sin gas",
     price: 350,
-    image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=300&fit=crop",
+    image: "https://acdn-us.mitiendanube.com/stores/001/147/879/products/63-53cbd6b7445c8ed73517381900561482-1024-1024.webp",
     category: "drinks",
   },
   // Postres

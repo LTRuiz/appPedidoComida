@@ -10,6 +10,8 @@ export interface CartItem {
 
 export type DeliveryMethod = "delivery" | "pickup" | null;
 
+export type PaymentMethod = "cash" | "transfer" | "other" | null;
+
 interface CartState {
   items: CartItem[];
   deliveryMethod: DeliveryMethod;
@@ -17,6 +19,7 @@ interface CartState {
   customerName: string;
   customerPhone: string;
   notes: string;
+  paymentMethod: PaymentMethod;
 }
 
 type CartAction =
@@ -28,6 +31,7 @@ type CartAction =
   | { type: "SET_CUSTOMER_NAME"; name: string }
   | { type: "SET_CUSTOMER_PHONE"; phone: string }
   | { type: "SET_NOTES"; notes: string }
+  | { type: "SET_PAYMENT_METHOD"; method: PaymentMethod }
   | { type: "CLEAR_CART" };
 
 const initialState: CartState = {
@@ -37,6 +41,7 @@ const initialState: CartState = {
   customerName: "",
   customerPhone: "",
   notes: "",
+  paymentMethod: null,
 };
 
 function cartReducer(state: CartState, action: CartAction): CartState {
@@ -76,6 +81,8 @@ function cartReducer(state: CartState, action: CartAction): CartState {
       return { ...state, customerPhone: action.phone };
     case "SET_NOTES":
       return { ...state, notes: action.notes };
+    case "SET_PAYMENT_METHOD":
+      return { ...state, paymentMethod: action.method };
     case "CLEAR_CART":
       return initialState;
     default:

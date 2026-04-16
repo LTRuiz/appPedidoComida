@@ -17,7 +17,8 @@ export function buildWhatsAppMessage(
   address: string,
   customerName: string,
   customerPhone: string,
-  notes: string
+  notes: string,
+  paymentMethod: string | null
 ): string {
   const lines: string[] = [];
 
@@ -54,6 +55,16 @@ export function buildWhatsAppMessage(
     lines.push(`🏠 *Modalidad:* RETIRO EN LOCAL`);
   }
 
+  const paymentLabels: Record<string, string> = {
+    cash: "💵 *Medio de pago:* EFECTIVO",
+    transfer: "🏦 *Medio de pago:* TRANSFERENCIA",
+    other: "💳 *Medio de pago:* OTRO MEDIO",
+  };
+  if (paymentMethod && paymentLabels[paymentMethod]) {
+    lines.push(paymentLabels[paymentMethod]);
+  }
+
+
   if (notes) {
     lines.push("");
     lines.push(`📝 *Notas:* ${notes}`);
@@ -64,6 +75,7 @@ export function buildWhatsAppMessage(
 
   return lines.join("\n");
 }
+
 
 export function openWhatsApp(message: string): void {
   const encoded = encodeURIComponent(message);

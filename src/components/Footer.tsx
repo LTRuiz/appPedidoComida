@@ -20,7 +20,7 @@ export default function Footer() {
           </svg>
         </a>
       </div>
-      <p className="footer-copy">© {new Date().getFullYear()} ComidaRapidaApp. Todos los derechos reservados.</p>
+      <p className="footer-copy">© {new Date().getFullYear()} Todos los derechos reservados - App creada por Lucas Ruiz</p>
     </footer>
   );
 }

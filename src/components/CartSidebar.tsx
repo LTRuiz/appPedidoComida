@@ -21,6 +21,7 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
   const handleSendOrder = () => {
     const errs: string[] = [];
     if (!state.customerName.trim()) errs.push("Ingresá tu nombre");
+    if (!state.customerPhone.trim()) errs.push("Ingresá tu número de teléfono"); // ← agregar
     if (!state.deliveryMethod) errs.push("Elegí si querés delivery o retiro");
     if (state.deliveryMethod === "delivery" && !state.address.trim())
       errs.push("Ingresá tu dirección para el delivery");

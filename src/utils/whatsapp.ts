@@ -78,7 +78,9 @@ export function buildWhatsAppMessage(
 
 
 export function openWhatsApp(message: string): void {
+  console.log("WHATSAPP_NUMBER:", WHATSAPP_NUMBER);
   const encoded = encodeURIComponent(message);
   const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`;
+  console.log("URL generada:", url); 
   window.open(url, "_blank");
 }

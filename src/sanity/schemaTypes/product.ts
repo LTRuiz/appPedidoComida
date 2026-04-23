@@ -63,5 +63,12 @@ export default {
             }
         ]
     },
+    {
+      name: 'tenant',
+      title: 'Cliente',
+      type: 'reference',
+      to: [{ type: 'tenant' }],
+      validation: (Rule: any) => Rule.required()
+    },
   ]
 }

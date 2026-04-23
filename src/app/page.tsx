@@ -1,10 +1,12 @@
-import { client } from '@/sanity/lib/client';
-import AppContent from '@/components/AppContent';
-import { CartProvider } from '@/context/CartContext';
+// src/app/page.tsx
+import { headers } from 'next/headers'
+import { client } from '@/sanity/lib/client'
+import { getTenantBySubdomain } from '@/lib/getTenant'
+import AppContent from '@/components/AppContent'
+import { CartProvider } from '@/context/CartContext'
 
-// Función para traer la data de Sanity
-async function getProducts() {
-  const query = `*[_type == "product"]{
+async function getProducts(tenantId: string) {
+  const query = `*[_type == "product" && tenant._ref == $tenantId]{
     "id": _id,
     name,
     price,
@@ -12,16 +14,18 @@ async function getProducts() {
     stock,
     category,
     ingredients
-  }`;
-  return await client.fetch(query);
+  }`
+  return await client.fetch(query, { tenantId })
 }
 
 export default async function Home() {
-  const products = await getProducts();
+  const subdomain = (await headers()).get('x-tenant-subdomain') || 'lucas'
+  const tenant = await getTenantBySubdomain(subdomain)
+  const products = tenant ? await getProducts(tenant.id) : []
 
   return (
     <CartProvider>
       <AppContent initialProducts={products} />
     </CartProvider>
-  );
+  )
 }

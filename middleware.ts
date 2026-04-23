@@ -1,13 +1,10 @@
-// src/middleware.ts  (en la raíz del proyecto, al lado de package.json)
+// src/proxy.ts
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
   const hostname = request.headers.get('host') || ''
-
-  // Extrae el subdominio
-  // "pizzeria.tuapp.com" → "pizzeria"
-  // "localhost:3000" → null (usa tenant por defecto)
+  const pathname = request.nextUrl.pathname
   const parts = hostname.split('.')
   const isLocalhost = hostname.includes('localhost')
 
@@ -16,15 +13,20 @@ export function middleware(request: NextRequest) {
   if (!isLocalhost && parts.length >= 3) {
     subdomain = parts[0]
   } else if (isLocalhost) {
-    subdomain = request.nextUrl.searchParams.get('tenant') || 'lucas'
+    subdomain = request.nextUrl.searchParams.get('tenant') || null
+  }
+
+  if (pathname.startsWith('/studio') && !subdomain) {
+    const adminPassword = request.cookies.get('admin-access')?.value
+    if (adminPassword !== process.env.ADMIN_SECRET) {
+      return NextResponse.redirect(new URL('/no-access', request.url))
+    }
   }
 
   const response = NextResponse.next()
-
   if (subdomain) {
     response.headers.set('x-tenant-subdomain', subdomain)
   }
-
   return response
 }
 

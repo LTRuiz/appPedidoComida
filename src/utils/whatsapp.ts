@@ -39,6 +39,11 @@ export function buildWhatsAppMessage(
 
   items.forEach((item) => {
     lines.push(`• ${item.quantity}x ${item.product.name}`);
+    if (item.product.customizations && item.product.customizations.length > 0) {
+      item.product.customizations.forEach((extra: any) => {
+        lines.push(`   └─ + ${extra.name}`);
+      });
+    }
     lines.push(`   ${formatPrice(item.product.price * item.quantity)}`);
   });
 

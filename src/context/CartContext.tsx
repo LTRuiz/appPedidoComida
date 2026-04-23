@@ -1,11 +1,29 @@
 "use client";
 
 import React, { createContext, useContext, useReducer, ReactNode } from "react";
-import { Product } from "@/data/menu";
+
+export interface Product {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  stock: boolean;
+  description?: string;
+  popular?: boolean;
+  category?: string;
+  customizations?: SelectedIngredient[];
+}
+
+export interface SelectedIngredient {
+  name: string;
+  price: number;
+  // canBeRemoved?: boolean;
+}
 
 export interface CartItem {
   product: Product;
   quantity: number;
+  customizations?: SelectedIngredient[]; 
 }
 
 export type DeliveryMethod = "delivery" | "pickup" | null;

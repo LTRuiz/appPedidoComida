@@ -78,6 +78,15 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                 <div key={item.product.id} className="cart-item">
                   <div className="cart-item-info">
                     <span className="cart-item-name">{item.product.name}</span>
+                    {item.product.customizations && item.product.customizations.length > 0 && (
+                      <div className="cart-item-extras">
+                        {item.product.customizations.map((extra: any, index: number) => (
+                          <span key={index} className="extra-tag">
+                            + {extra.name}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                     <span className="cart-item-price">
                       {formatPrice(item.product.price * item.quantity)}
                     </span>

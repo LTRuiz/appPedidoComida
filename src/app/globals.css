@@ -399,7 +399,7 @@ body {
 .product-card {
   background: var(--dark);
   border-radius: var(--radius);
-  overflow: hidden;
+  overflow: visible;
   border: 1px solid var(--dark3);
   transition: all 0.25s;
   position: relative;
@@ -428,7 +428,7 @@ body {
   letter-spacing: 0.05em;
 }
 
-.product-img-wrap { width: 100%; height: 190px; overflow: hidden; }
+.product-img-wrap { width: 100%; height: 190px; overflow: hidden; border-radius: var(--radius) var(--radius) 0 0; }
 .product-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
 .product-card:hover .product-img { transform: scale(1.05); }
 
@@ -779,4 +779,55 @@ body {
 .footer-copy {
   font-size: 13px;
   color: var(--color-primary);
+}
+
+/* Extras ingredientes */
+.cart-item-extras {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.extra-tag {
+  font-size: 0.75rem;
+  color: var(--orange);
+  background-color: var(--dark3);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+/* Modal */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .cart-sidebar {
+    height: 100dvh;
+  }
+  
+  .cart-footer {
+    position: sticky;
+    bottom: 0;
+    background: var(--dark);
+    z-index: 10;
+  }
 }

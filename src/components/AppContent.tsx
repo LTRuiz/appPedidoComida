@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import CartSidebar from "@/components/CartSidebar";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import HeroCarrusel from "@/components/HeroCarrusel";
+import { useTenant } from "@/context/TenantContext";
 
 interface Product {
   id: string;
@@ -21,6 +22,7 @@ export default function AppContent({ initialProducts }: { initialProducts: Produ
   const [activeCategory, setActiveCategory] = useState("all");
   const [cartOpen, setCartOpen] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const tenant = useTenant();
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
@@ -37,7 +39,7 @@ export default function AppContent({ initialProducts }: { initialProducts: Produ
 
   return (
     <div className="app">
-      <Header onCartOpen={() => setCartOpen(true)} />
+      <Header onCartOpen={() => setCartOpen(true)} tenant={tenant} />
       <HeroCarrusel />
       
       <section className="categories-section" style={{ position: 'relative', padding: '0 10px'}}>

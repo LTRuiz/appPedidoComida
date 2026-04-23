@@ -1,27 +1,48 @@
+import { headers } from 'next/headers';
+import { getTenantBySubdomain } from '../lib/getTenant';
+import { TenantProvider } from '@/context/TenantContext';
 import type { Metadata } from "next";
 import "./globals.css";
-import { Inter } from 'next/font/google';
-import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
-const inter = Inter({ subsets: ['latin'] });
 
-export const metadata: Metadata = {
-  title: "App — Comida Rápida",
-  description: "Pedí tu comida favorita por WhatsApp. Delivery o retiro en local.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const subdomain = (await headers()).get('x-tenant-subdomain') || 'lucas'
+  const tenant = await getTenantBySubdomain(subdomain)
+  return {
+    title: tenant?.name || 'Pedidos',
+    description: tenant?.description || '',
+  }
+}
 
-export default function RootLayout({
+
+export default async function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
+  const subdomain = (await headers()).get('x-tenant-subdomain') || 'lucas'
+  const tenant = await getTenantBySubdomain(subdomain)
+
+  const cssVars = tenant
+    ? `
+      --color-primary: ${tenant.primaryColor};
+      --color-secondary: ${tenant.secondaryColor || '#1A1A1A'};
+    `
+    : `
+      --color-primary: #FF8C00;
+      --color-secondary: #1A1A1A;
+    `
+
   return (
     <html lang="es">
       <body>
-        {children}
-        <Footer />
-        <div id="modal-root" />
+        <style>{`:root { ${cssVars} }`}</style>
+        <div id='modal-root' />
+        <TenantProvider tenant={tenant}>
+          {children}
+        </TenantProvider>
       </body>
     </html>
-  );
+  )
 }
